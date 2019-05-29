@@ -1,0 +1,75 @@
+Comment
+| [Eᴍʙᴇᴅ-ᴀ-Uᴘᴅᴀᴛᴇ]
+| Set ID and Version below.
+| Make sure to update Version every time you update your shortcut.
+
+Dictionary{
+    ID: "2672 [YOUR ROUTINEHUB ID HERE]",
+    Version: "9.2 [YOUR CURRENT VERSION HERE]"
+} -> v:LocalData
+Comment "RoutineHub ID"
+
+GetCurrentIPAddress
+Count Items
+
+If Equals 0
+    // By default this is not shown because there is no need to tell the user
+    // they don't have internet. They probably know that already.
+    Comment "[Eᴍʙᴇᴅ-ᴀ-Uᴘᴅᴀᴛᴇ] Could not check for updates, there is no internet connection."
+Otherwise
+
+    URL "https://routinehub.co/api/v1/shortcuts/\(v:LocalData.ID)/versions/latest"
+    GetContentsOfURL -> mv:Remote
+
+    If ^mv:Remote.result Equals "success"
+        Dictionary{current: v:LocalData.Version, new: mv:Remote.Version} -> mv:CompareVersionsData
+
+        Text -> mv:CompareVersionsHTML
+        | <html><head></head><body><script>
+        | // Embed-a-Engine 1.0
+        | function cmp (a, b) {
+        |   let pa = a.split('.');
+        |   let pb = b.split('.');
+        |   for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+        |       let na = Number(pa[i]);
+        |       let nb = Number(pb[i]);
+        |       if (isNaN(na)) na = 0;
+        |       if (isNaN(nb)) nb = 0;
+        |       if (na > nb) return "RollbackAvailable";
+        |       if (nb > na) return "UpdateAvailable";
+        |   }
+        |   return "NoChanges";
+        | };
+        | let data = \(mv:CompareVersionsData);
+        | document.write(cmp(data.current, data.new));
+        | </script></body></html>
+        URL "data:text/html,\(mv:CompareVersionsHTML)"
+        GetContentsOfWebpage
+
+        If Equals "NoChanges"
+            // By default, this is not shown because there is no reason to tell the user
+            // when there are no updates available.
+            Comment "[Eᴍʙᴇᴅ-ᴀ-Uᴘᴅᴀᴛᴇ] No updates are available at this time."
+        Otherwise
+            If Equals "RollbackAvailable"
+                Text "A rollback is available: \(v:LocalData.Version) ↘ \(mv:Remote.Version)"
+            Otherwise
+                Text "An update is available: \(v:LocalData.Version) → \(mv:Remote.Version)"
+            End -> mv:IfResult
+            ChooseFromMenu "\(mv:IfResult)\n\nUpdate checking with [Eᴍʙᴇᴅ-ᴀ-Uᴘᴅᴀᴛᴇ]"
+            | Install \(mv:Remote.Version)
+            | Later
+            case Install
+                URL "https://routinehub.co/download/\(mv:Remote.id)"
+                OpenURLs
+            case NotYet
+            end
+        End
+    Otherwise
+        ShowAlert "[Eᴍʙᴇᴅ-ᴀ-Uᴘᴅᴀᴛᴇ]"
+        | Could not check for updates because of a RoutineHub error: 
+        | 
+        | \(mv:Remote.message)
+    End
+
+End
