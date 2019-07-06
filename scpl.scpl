@@ -56,7 +56,7 @@ Otherwise
             Otherwise
                 Text "An update is available: \(v:LocalData.Version) → \(mv:Remote.Version)"
             End -> mv:IfResult
-            ChooseFromMenu "\(mv:IfResult)\n\nUpdate checking with [Eᴍʙᴇᴅ-ᴀ-Uᴘᴅᴀᴛᴇ]"
+            ChooseFromMenu (Text "\(mv:IfResult)\n\nUpdate checking with [Eᴍʙᴇᴅ-ᴀ-Uᴘᴅᴀᴛᴇ]")
             | Install \(mv:Remote.Version)
             | Later
             case Install
