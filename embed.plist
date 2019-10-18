@@ -876,7 +876,7 @@ document.write(cmp(data.current, data.new));
 								<key>Type</key>
 								<string>ActionOutput</string>
 							</dict>
-							<key>{3, 4}</key>
+							<key>{3, 1}</key>
 							<dict>
 								<key>Aggrandizements</key>
 								<array>
