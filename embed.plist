@@ -888,7 +888,7 @@ document.write(cmp(data.current, data.new));
 									</dict>
 									<dict>
 										<key>DictionaryKey</key>
-										<string>Version</string>
+										<string>Notes</string>
 										<key>Type</key>
 										<string>WFDictionaryValueVariableAggrandizement</string>
 									</dict>
