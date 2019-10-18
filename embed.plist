@@ -876,9 +876,35 @@ document.write(cmp(data.current, data.new));
 								<key>Type</key>
 								<string>ActionOutput</string>
 							</dict>
+							<key>{3, 4}</key>
+							<dict>
+								<key>Aggrandizements</key>
+								<array>
+									<dict>
+										<key>CoercionItemClass</key>
+										<string>WFDictionaryContentItem</string>
+										<key>Type</key>
+										<string>WFCoercionVariableAggrandizement</string>
+									</dict>
+									<dict>
+										<key>DictionaryKey</key>
+										<string>Notes</string>
+										<key>Type</key>
+										<string>WFDictionaryValueVariableAggrandizement</string>
+									</dict>
+								</array>
+								<key>OutputName</key>
+								<string>Remote</string>
+								<key>OutputUUID</key>
+								<string>a585622f-3b7c-4273-a3a5-771a5fbfba5a</string>
+								<key>Type</key>
+								<string>ActionOutput</string>
+							</dict>
 						</dict>
 						<key>string</key>
 						<string>￼
+
+￼
 
 Update checking with [Eᴍʙᴇᴅ-ᴀ-Uᴘᴅᴀᴛᴇ]</string>
 					</dict>
